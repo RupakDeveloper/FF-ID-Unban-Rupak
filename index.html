@@ -3,58 +3,563 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My First Website</title>
+  <meta name="theme-color" content="#080812">
+  <meta name="description" content="Rupak® — Cinematic video editing, motion graphics and visual storytelling.">
+  <title>RupakEditz | Visual Storyteller</title>
 
   <style>
+    :root {
+      --bg: #080812;
+      --panel: #11111f;
+      --purple: #a855f7;
+      --blue: #6366f1;
+      --text: #f7f5ff;
+      --muted: #aaa9c2;
+      --line: #29273d;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #101014;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    .card {
-      padding: 40px 25px;
-      border: 1px solid #383842;
-      border-radius: 20px;
-      max-width: 420px;
-      margin: 20px;
-    }
-
-    h1 {
-      font-size: 38px;
-      color: #a78bfa;
-    }
-
-    p {
-      color: #c5c5d0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
       line-height: 1.7;
     }
 
-    button {
-      padding: 12px 22px;
-      border: none;
-      border-radius: 8px;
-      background: #8b5cf6;
+    a { color: inherit; text-decoration: none; }
+
+    button { font: inherit; }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(8, 8, 18, .88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+    }
+
+    .logo span, .gradient {
+      color: var(--purple);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 21px;
+      border-radius: 9px;
+      border: 1px solid var(--purple);
       color: white;
       cursor: pointer;
-      font-size: 16px;
+      transition: .25s;
+      background: transparent;
+    }
+
+    .btn.primary {
+      background: linear-gradient(120deg, #6245ff, #bd42f5);
+      border: 0;
+      box-shadow: 0 0 25px #8b5cf633;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 24px #a855f744;
+    }
+
+    .hero {
+      min-height: 610px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% 35%, #55277955, transparent 38%),
+        radial-gradient(ellipse at 65% 90%, #2725a844, transparent 40%),
+        linear-gradient(120deg, #080812 35%, #151025 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      right: 10%;
+      top: 18%;
+      border-radius: 50%;
+      background: #a855f711;
+      border: 1px solid #a855f733;
+      box-shadow: 0 0 100px #a855f722;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      padding: 85px 0 45px;
+    }
+
+    .eyebrow {
+      color: #c4a1ff;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 4px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 76px);
+      line-height: 1.08;
+      letter-spacing: -3px;
+      margin: 18px 0;
+    }
+
+    .hero p {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .music {
+      margin-top: 38px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #11111fbf;
+      max-width: 530px;
+    }
+
+    .disc {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #6938ee, #b448ed);
+      border-radius: 10px;
+      font-size: 22px;
+    }
+
+    .music-info { flex: 1; min-width: 120px; }
+
+    .music-info strong { display: block; font-size: 14px; }
+    .music-info small { color: var(--muted); }
+
+    .music button {
+      color: white;
+      background: #24213b;
+      border: 1px solid #514079;
+      padding: 9px 12px;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .music button:hover { background: #433064; }
+
+    section { padding: 90px 0; }
+
+    .section-title {
+      font-size: clamp(30px, 5vw, 43px);
+      line-height: 1.2;
+      margin: 8px 0 18px;
+    }
+
+    .muted { color: var(--muted); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .about-card {
+      padding: 35px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(145deg, #151326, #0d0d17);
+    }
+
+    .stats {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .stats strong {
+      display: block;
+      color: #c084fc;
+      font-size: 25px;
+    }
+
+    .services, .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .service, .project {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: .3s;
+    }
+
+    .service { padding: 25px; }
+
+    .service:hover, .project:hover {
+      transform: translateY(-5px);
+      border-color: var(--purple);
+    }
+
+    .service-icon {
+      font-size: 28px;
+      color: #c084fc;
+    }
+
+    .project-art {
+      height: 180px;
+      display: grid;
+      place-items: center;
+      font-size: 38px;
+      background:
+        radial-gradient(circle at 65% 35%, #9d4edd66, transparent 35%),
+        linear-gradient(135deg, #14152d, #282044, #080812);
+    }
+
+    .project:nth-child(2) .project-art {
+      background: linear-gradient(135deg, #183c49, #101421, #44214e);
+    }
+
+    .project:nth-child(3) .project-art {
+      background: linear-gradient(135deg, #47205f, #111124, #31255c);
+    }
+
+    .project-info { padding: 18px; }
+    .project-info h3 { margin: 0 0 5px; }
+
+    .contact-box {
+      text-align: center;
+      padding: 55px 25px;
+      border: 1px solid #49306b;
+      border-radius: 20px;
+      background: radial-gradient(ellipse at top, #58258044, #11111f 70%);
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    @media (max-width: 700px) {
+      .nav-links { display: none; }
+      .hero { min-height: auto; }
+      .hero-content { padding: 75px 0 40px; }
+      h1 { letter-spacing: -1.5px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .services, .projects { grid-template-columns: 1fr; }
+      section { padding: 65px 0; }
+      .about-card { padding: 24px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>Hello, World!</h1>
-    <p>This is my first website.</p>
-    <button onclick="alert('My website is working!')">
-      Click Me
-    </button>
+
+<header>
+  <nav class="container">
+    <a class="logo" href="#home">Rupak<span>Editz.</span></a>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <a class="btn" href="#contact">Let's Talk ↗</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <div class="eyebrow">Video Editor · Visual Storyteller</div>
+
+        <h1>
+          Turning Moments<br>
+          Into <span class="gradient">Stories.</span>
+        </h1>
+
+        <p>
+          I'm Rupak, a video editor focused on cinematic edits,
+          engaging reels and creative visual storytelling.
+          Every frame has a purpose. Every story has a feeling.
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#portfolio">▶ View My Work</a>
+          <a class="btn" href="#contact">Contact Me ↗</a>
+        </div>
+
+        <div class="music">
+          <div class="disc" id="disc">♫</div>
+
+          <div class="music-info">
+            <strong id="trackName">Your Background Song</strong>
+            <small id="musicStatus">Background music · Optional</small>
+          </div>
+
+          <button id="musicButton" type="button">▶ Enable Music</button>
+          <button id="muteButton" type="button" aria-label="Mute music">🔊</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about-grid">
+      <div>
+        <div class="eyebrow">A little about me</div>
+        <h2 class="section-title">Creating visuals.<br><span class="gradient">Building emotions.</span></h2>
+        <p class="muted">
+          I turn raw footage into engaging visual experiences
+          through editing, pacing, sound design and colour.
+          My goal is to make every project feel memorable.
+        </p>
+        <div class="stats">
+          <div><strong>01</strong><span class="muted">Creative vision</span></div>
+          <div><strong>24/7</strong><span class="muted">Learning mindset</span></div>
+          <div><strong>100%</strong><span class="muted">Focus on craft</span></div>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="eyebrow">My approach</div>
+        <h3>Details make the difference.</h3>
+        <p class="muted">
+          From a precise cut to a carefully chosen sound,
+          small decisions shape the final experience.
+        </p>
+        <p>✦ Cinematic storytelling</p>
+        <p>✦ Creative transitions</p>
+        <p>✦ Colour and sound design</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="eyebrow">What I do</div>
+      <h2 class="section-title">Services & <span class="gradient">expertise.</span></h2>
+
+      <div class="services">
+        <article class="service">
+          <div class="service-icon">▣</div>
+          <h3>Video Editing</h3>
+          <p class="muted">Cinematic videos, reels, YouTube content and storytelling edits.</p>
+        </article>
+
+        <article class="service">
+          <div class="service-icon">✧</div>
+          <h3>Motion Graphics</h3>
+          <p class="muted">Dynamic titles, visual effects and animated elements.</p>
+        </article>
+
+        <article class="service">
+          <div class="service-icon">◉</div>
+          <h3>Colour Grading</h3>
+          <p class="muted">Carefully balanced colours for a distinctive visual mood.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="container">
+      <div class="eyebrow">Selected work</div>
+      <h2 class="section-title">Featured <span class="gradient">projects.</span></h2>
+      <p class="muted">Replace these sample cards with your real video projects.</p>
+
+      <div class="projects">
+        <article class="project">
+          <div class="project-art">▶</div>
+          <div class="project-info">
+            <h3>Cinematic Film</h3>
+            <p class="muted">Colour · Storytelling</p>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-art">✦</div>
+          <div class="project-info">
+            <h3>Travel Story</h3>
+            <p class="muted">Editing · Sound design</p>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-art">◈</div>
+          <div class="project-info">
+            <h3>Creative Montage</h3>
+            <p class="muted">Motion · Visual effects</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-box">
+        <div class="eyebrow">Have a project in mind?</div>
+        <h2 class="section-title">Let's create something <span class="gradient">remarkable.</span></h2>
+        <p class="muted">Have a project or collaboration idea? Get in touch.</p>
+        <a class="btn primary" href="mailto:rupakfx@gmail.com">Contact Me ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a class="logo" href="#home">Rupak<span>Editz.</span></a>
+    <span>© <span id="year"></span> RupakEditz. All rights reserved.</span>
+    <a href="#home">Back to top ↑</a>
   </div>
+</footer>
+
+<!-- Put your own licensed audio file beside index.html -->
+<audio id="bgMusic" preload="metadata" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const music = document.getElementById("bgMusic");
+  const musicButton = document.getElementById("musicButton");
+  const muteButton = document.getElementById("muteButton");
+  const musicStatus = document.getElementById("musicStatus");
+  const disc = document.getElementById("disc");
+
+  // CHANGE THESE VALUES TO SELECT YOUR SONG SECTION.
+  const startAt = 5; // Start at 5 seconds
+  const endAt = 30;   // Stop this section at 30 seconds
+
+  let musicStarted = false;
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+  async function startMusic() {
+    try {
+      if (!musicStarted) {
+        music.currentTime = startAt;
+        musicStarted = true;
+      }
+
+      await music.play();
+      musicButton.textContent = "❚❚ Pause Music";
+      musicStatus.textContent = "Now playing · Your song";
+      disc.style.animation = "spin 4s linear infinite";
+    } catch (error) {
+      musicStatus.textContent =
+        "Music blocked or song missing. Check song.mp3.";
+    }
+  }
+
+  musicButton.addEventListener("click", () => {
+    if (music.paused) {
+      startMusic();
+    } else {
+      music.pause();
+      musicButton.textContent = "▶ Play Music";
+      disc.style.animation = "none";
+    }
+  });
+
+  muteButton.addEventListener("click", () => {
+    music.muted = !music.muted;
+    muteButton.textContent = music.muted ? "🔇" : "🔊";
+  });
+
+  music.addEventListener("timeupdate", () => {
+    if (music.currentTime >= endAt && !music.paused) {
+      if (endAt > startAt && endAt < music.duration) {
+        music.currentTime = startAt;
+      }
+    }
+  });
+
+  // Browsers may block autoplay with sound.
+  // If allowed, try to start the selected song section.
+  window.addEventListener("load", () => {
+    startMusic();
+  });
+</script>
+
+<style>
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
+
 </body>
 </html>
